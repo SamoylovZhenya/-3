@@ -5,7 +5,6 @@ using namespace std;
 int main(void)
 {
     setlocale(LC_ALL, "ru"); //русский язык
-
     cout << "№ 21 Cамойлов ПС-20-2-2\n";
             /*"У одновимірному масиві, що складається з n цілих елементів, обчислити:\n"
             "1) кількість елементів, що не попадають у заданий інтервал (а, в), (значення а и в ввести),\n"
@@ -13,28 +12,28 @@ int main(void)
             "3) Сформувати новий масив з елементів, узятих по одному з кожної групи рівних членів заданого масиву.\n";*/
         srand(time(NULL));
 
-        int N = 20;  
-        //cout << "Bвидите N ";
-        //cin >> N;
+        int N = 7;  
+        cout << "Bвидите N ";
+        cin >> N;
         int *arr = new int[N]; 
 
         int counter = 0; //счетчик
         int A, B;
-        A = -5;
-        B = 6;
-        //cout << "Bвидите A ";
-        //cin >> A;
-        //cout << "Bвидите B ";
-        //cin >> B;
+        //A = -5;
+        //B = 6;
+        cout << "Bвидите A ";
+        cin >> A;
+        cout << "Bвидите B ";
+        cin >> B;
 
          
         //заполнение масива + счетчик
         for (int i = 0; i < N; i++)
         {
-            arr[i] = -5 + rand() % 20   ; // -10 ... 20
+            //arr[i] = -5 + rand() % 20   ; // -10 ... 20
 
-            //cout << "Bвидите элемент масива № " << i + 1 << " : ";
-            //cin >> arr[i];
+            cout << "Bвидите элемент масива № " << i + 1 << " : ";
+            cin >> arr[i];
 
             if (A<arr[i]&& arr[i]<B) {
                 counter++;
@@ -56,9 +55,9 @@ int main(void)
         //2)
         cout << "\n" << "\n";
         cout << "2) суму модулів елементів, що стоять на парних місцях в масиві.\n";
-        if (!N > 0) {
+        /*if (!N > 0) {
             goto N3; //66 строчка ити к № 3
-        }
+        }*/
         counter = 0;
         for (int i = 1; i < N; i+=2) {
             counter += abs(arr[i]);
@@ -70,6 +69,8 @@ int main(void)
         cout << "\n" << "\n";
         cout << "3) Сформувати новий масив з елементів, узятих по одному з кожної групи рівних членів заданого масиву.\n";
         counter = 0;
+        int NR = 0 ;
+        
         for (int i = 0; i < N; i++)
         {
             bool repeats = false;
@@ -79,13 +80,33 @@ int main(void)
                 counter++;
             }   
             if (!repeats){ 
-                cout << arr[i] << " "; 
+                NR++;
             }  
             counter ++;
         }
 
+        int* arrR = new int[NR];
+        NR = 0;
+        for (int i = 0; i < N; i++)
+        {
+            bool repeats = false;
+            for (int j = 0; j < i && !repeats; j++) {
+                if (arr[j] == arr[i])
+                    repeats = true;
+                counter++;
+            }
+            if (!repeats) {
+                arrR[NR] = arr[i];
+                cout << arrR[NR] << " ";
+                NR++;
+            }
+            counter++;
+        }
+
         cout << "\n";
-        cout << ">> " << counter << " <<" << "\n";
+        //cout << ">> " << counter << " <<" << "\n";
         delete[] arr;
+        delete[] arrR;
+        arr = 0;
     return 0;
 }
